@@ -17,7 +17,8 @@ export default {
       yPos: 0,
       xDir: '',
       yDir: '',
-      speed: 0
+      speed: 0,
+      interval: null
     }
   },
   methods: {
@@ -33,6 +34,7 @@ export default {
         this.yPos = this.yPos - this.speed
       }
       this.checkForWall()
+      this.checkIfScored()
     },
     reverseDirection (hitLeftPaddle, hitTopHalfOfPaddle) {
       if (hitLeftPaddle) {
@@ -59,18 +61,32 @@ export default {
       this.speed = 10
       randomNumber1 < 0.5 ? this.xDir = 'leftToRight' : this.xDir = 'rightToLeft'
       randomNumber2 < 0.5 ? this.yDir = 'bottomToTop' : this.yDir = 'topToBottom'
-      setInterval(this.move, 100)
+      this.interval = setInterval(this.move, 100)
     },
     checkForWall () {
-      if (this.xPos > this.$parent.$refs.game.clientWidth - (this.size / 2) || this.xPos < (this.size / 2)) {
-        this.speed = 0
-      }
       if (this.yPos > this.$parent.$refs.game.clientHeight - this.size) {
         this.yDir = 'topToBottom'
       }
       if (this.yPos < this.size) {
         this.yDir = 'bottomToTop'
       }
+    },
+    checkIfScored () {
+      if (this.xPos > this.$parent.$refs.game.clientWidth - (this.size * 1.5)) {
+        this.$emit('goal', 'playerOne')
+        this.countScoreAndReset()
+      }
+      if (this.xPos < this.size / 2) {
+        this.$emit('goal', 'playerTwo')
+        this.countScoreAndReset()
+      }
+    },
+    countScoreAndReset () {
+      clearInterval(this.interval)
+      setTimeout(() => {
+        this.reset()
+        this.startMoving()
+      }, 3000)
     }
   },
   mounted () {

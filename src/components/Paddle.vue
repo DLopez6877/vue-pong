@@ -27,20 +27,20 @@ export default {
     window.addEventListener('keydown', this.keyPressed)
   },
   methods: {
-      keyPressed (e) {
-        if (this.isLeftPaddle && e.key === 'w' && this.yPos > 0) {
-            this.yPos = this.yPos - 10;
-        }
-        if (this.isLeftPaddle && e.key === 's' && this.yPos < this.$parent.$refs.game.clientHeight - 100) {
-            this.yPos = this.yPos + 10;
-        }
-        if (!this.isLeftPaddle && e.key === 'ArrowUp' && this.yPos > 0) {
-            this.yPos = this.yPos - 10;
-        }
-        if (!this.isLeftPaddle && e.key === 'ArrowDown' && this.yPos < this.$parent.$refs.game.clientHeight- 100) {
-            this.yPos = this.yPos + 10;
-        }
+    keyPressed (e) {
+      if (this.isLeftPaddle && e.key === 'w' && this.yPos > 0) {
+        this.yPos = this.yPos - 10
       }
+      if (this.isLeftPaddle && e.key === 's' && this.yPos < this.$parent.$refs.game.clientHeight - 100) {
+        this.yPos = this.yPos + 10
+      }
+      if (!this.isLeftPaddle && e.key === 'ArrowUp' && this.yPos > 0) {
+        this.yPos = this.yPos - 10
+      }
+      if (!this.isLeftPaddle && e.key === 'ArrowDown' && this.yPos < this.$parent.$refs.game.clientHeight - 100) {
+        this.yPos = this.yPos + 10
+      }
+    }
   }
 }
 </script>

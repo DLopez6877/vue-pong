@@ -2,7 +2,7 @@
   <div id="game" ref="game">
     <div id="centerLine"></div>
     <Scoreboard :playerOneScore="playerOneScore" :playerTwoScore="playerTwoScore" />
-    <Ball />
+    <Ball @goal="handleGoal" />
     <Paddle isLeftPaddle />
     <Paddle />
   </div>
@@ -24,6 +24,15 @@ export default {
     return {
       playerOneScore: 0,
       playerTwoScore: 0
+    }
+  },
+  methods: {
+    handleGoal (player) {
+      if (player === 'playerOne') {
+        this.playerOneScore++
+      } else {
+        this.playerTwoScore++
+      }
     }
   }
 }
